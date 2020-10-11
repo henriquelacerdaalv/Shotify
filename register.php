@@ -1,11 +1,11 @@
 <?php 
     //TODO: find better way to reference files
-    // include("includes/Controllers/registerController.php"); 
-    // include("includes/Controllers/loginController.php"); 
-    // include("includes/classes/Account.php"); 
+    require_once("includes/Controllers/registerController.php"); 
+    require_once("includes/Controllers/loginController.php"); 
+    require_once("includes/classes/Account.php"); 
 
-    // $account = new Account();
-    // $account->register();
+    $account = new Account();
+    $account->register($username, $firstName, $lastName, $email, $email2, $password, $password2);
 ?>
 
 <html> 
@@ -42,6 +42,7 @@
             </p>
 
             <p>
+                <?php echo $account->getError("Your username must be between 5 and 15 characters"); ?>
                 <label for="registerUser">Username</label>
                 <input id="registerUser" name ="registerUser" type ="text" placeholder="e. g. John Smith" required></input>
             </p>

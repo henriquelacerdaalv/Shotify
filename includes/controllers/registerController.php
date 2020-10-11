@@ -1,7 +1,7 @@
 <?php   
         //TODO: find better way to reference files
-        // include("includes/Controllers/loginController.php"); 
-        // include("includes/classes/Account.php"); 
+        require_once("includes/Controllers/loginController.php"); 
+        require_once("includes/classes/Account.php"); 
 
         //Cleans tags and replaces spaces for username
         function sanitizeFormUsername($inputText){
@@ -22,7 +22,7 @@
             $inputText = ucfirst(strtolower($inputText));
             return $inputText;
         }
-        //Register button
+        //Register button pressed
         if (isset($_POST['registerButton'])) {
             $username = sanitizeFormUsername($_POST['registerUser']);
             $firstName = sanitizeFormString($_POST['firstName']);
@@ -33,6 +33,12 @@
             $email2 = sanitizeFormString($_POST['email2']);
             
             $account = new Account($username, $firstName, $lastName, $password ,$password2, $email, $email2);
-    }
-    
+
+            $success = $account->register($username,$firstName,$lastName,$password,$password,$email,$email2);
+            
+            if ($success == true)
+            {
+                header("Location: index.php");
+            } 
+    }   
 ?>

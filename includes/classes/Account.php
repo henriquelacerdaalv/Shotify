@@ -12,6 +12,22 @@
                     $this->validateLastName($ln);
                     $this->validateEmails($em1, $em2);
                     $this->validatePassword($pw1, $pw2);
+
+                    if(empty($this->errorArray)){
+                        //Insert into db
+                        return true;
+                    }
+                    else
+                    {
+                        return false; 
+                    }
+                }
+
+                public function getError ($error){
+                    if(!in_array($error, $this->errorArray)){
+                        $error="";
+                    }
+                    return "<span class='errorMessage'>$error</span>"; 
                 }
 
                 //Validates username 
