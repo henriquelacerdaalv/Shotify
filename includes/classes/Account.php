@@ -7,6 +7,7 @@
                 $this->errorArray = array(); 
             }
                 public function register($un, $fn, $ln, $em1, $em2, $pw1, $pw2){
+                    //TODO: references register variables
                     $this->validateUsername($un);
                     $this->validateFirstName($fn);
                     $this->validateLastName($ln);
@@ -69,6 +70,14 @@
                         array_push($this->errorArray, "Your passwords don't match."); 
                         return;
                     }
+                    if(preg_match("#^[0-9a-z]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-z]{2,3}$#", $pw1)){
+                        array_push($this->errorArray, "Your passwords can only contain numbers and letters.");
+                        return;
+                    }
+                    if(strlen($pw1) > 30 || strlen($pw2) < 5){
+                        array_push($this->errorArray, "Your password must be between 5 and 30 characters"); 
+                        return;
                 }
             }
+        }
     ?>

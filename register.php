@@ -5,7 +5,7 @@
     require_once("includes/classes/Account.php"); 
 
     $account = new Account();
-    $account->register($username, $firstName, $lastName, $email, $email2, $password, $password2);
+    $account->register($username, $firstName, $lastName, $password ,$password2, $email, $email2);
 ?>
 
 <html> 
@@ -32,11 +32,13 @@
         <form id="registerForm" action="register.php" method="POST">
             <h2>Register your account</h2>
             <p>
+                <?php echo $account->getError("Your first name must be between 5 and 30 characters."); ?>
                 <label for="firstName">First Name</label>
                 <input id="firstName" name ="firstName" type ="text" placeholder="e. g. John" required></input>
             </p>
 
             <p>
+                <?php echo $account->getError("Your last name must be between 2 and 30 characters."); ?>
                 <label for="lastName">Last Name</label>
                 <input id="lastName" name ="lastName" type ="text" placeholder="e. g. Smith" required></input>
             </p>
@@ -57,11 +59,14 @@
             </p>
 
             <p>
+                <?php echo $account->getError("Your emails don't match."); ?>
+                <?php echo $account->getError("Your email is invalid"); ?>
                 <label for="email">Email</label>
                 <input id="email" name ="email" type ="email" placeholder="e. g. johnsmith@gmail.com" required></input>
             </p>
 
             <p>
+                <?php echo $account->getError("Your username must be between 5 and 15 characters"); ?>
                 <label for="email2">Confirm Email</label>
                 <input id="email2" name ="email2" type="email" placeholder="e. g. johnsmith@gmail.com" required></input>
             </p>
