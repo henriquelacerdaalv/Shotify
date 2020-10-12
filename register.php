@@ -3,9 +3,16 @@
     require_once("includes/Controllers/registerController.php"); 
     require_once("includes/Controllers/loginController.php"); 
     require_once("includes/classes/Account.php"); 
+    require_once("includes/classes/Constants.php"); 
 
     $account = new Account();
     $account->register($username, $firstName, $lastName, $password ,$password2, $email, $email2);
+
+    function getInputValue($name){
+        if(isset($_POST[$name])){
+            echo ($_POST[$name]);
+        }
+    }
 ?>
 
 <html> 
@@ -32,23 +39,26 @@
         <form id="registerForm" action="register.php" method="POST">
             <h2>Register your account</h2>
             <p>
-                <?php echo $account->getError("Your first name must be between 5 and 30 characters."); ?>
+                <?php echo $account->getError(Constants::$firstNameLength); ?>
                 <label for="firstName">First Name</label>
                 <input id="firstName" name ="firstName" type ="text" placeholder="e. g. John" required></input>
             </p>
 
             <p>
-                <?php echo $account->getError("Your last name must be between 2 and 30 characters."); ?>
+                <?php echo $account->getError(Constants::$lastNameLength); ?>
                 <label for="lastName">Last Name</label>
                 <input id="lastName" name ="lastName" type ="text" placeholder="e. g. Smith" required></input>
             </p>
 
             <p>
-                <?php echo $account->getError("Your username must be between 5 and 15 characters"); ?>
+                <?php echo $account->getError(Constants::$usernameLength); ?>
                 <label for="registerUser">Username</label>
                 <input id="registerUser" name ="registerUser" type ="text" placeholder="e. g. John Smith" required></input>
             </p>
             <p>
+                <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
+                <?php echo $account->getError(Constants::$passwordsLength); ?>
+                <?php echo $account->getError(Constants::$passwordsNotAlfanum); ?>
                 <label for="password">Password</label>
                 <input id="password" name ="password" type="password" placeholder="Enter your password" required></input>
             </p>
@@ -59,14 +69,13 @@
             </p>
 
             <p>
-                <?php echo $account->getError("Your emails don't match."); ?>
-                <?php echo $account->getError("Your email is invalid"); ?>
+                <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
+                <?php echo $account->getError(Constants::$emailInvalid); ?>
                 <label for="email">Email</label>
                 <input id="email" name ="email" type ="email" placeholder="e. g. johnsmith@gmail.com" required></input>
             </p>
 
             <p>
-                <?php echo $account->getError("Your username must be between 5 and 15 characters"); ?>
                 <label for="email2">Confirm Email</label>
                 <input id="email2" name ="email2" type="email" placeholder="e. g. johnsmith@gmail.com" required></input>
             </p>

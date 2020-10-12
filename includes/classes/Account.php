@@ -1,4 +1,5 @@
 <?php
+    require_once("includes/classes/Constants.php"); 
     class Account {
 
         private $errorArray;
@@ -34,7 +35,7 @@
                 //Validates username 
                 private function validateUsername($un){
                     if(strlen($un) > 15 || strlen($un) < 5){
-                        array_push($this->errorArray, "Your username must be between 5 and 15 characters."); 
+                        array_push($this->errorArray, Constants::$usernameLength); 
                         return;
                     }
                     //TODO: check if username exists
@@ -42,40 +43,40 @@
 
                 private function validateFirstName($fn){
                     if(strlen($fn) > 30 || strlen($fn) < 5){
-                        array_push($this->errorArray, "Your first name must be between 5 and 30 characters."); 
+                        array_push($this->errorArray, Constants::$firstNameLength); 
                         return;
                     }
                 }
 
                 private function validateLastName($ln){
                     if(strlen($ln) > 30 || strlen($ln) < 5){
-                        array_push($this->errorArray, "Your last name must be between 2 and 30 characters."); 
+                        array_push($this->errorArray, Constants::$lastNameLength); 
                         return;
                     }
                 }
 
                 private function validateEmails($em1, $em2){
                     if ($em1 != $em2){
-                        array_push($this->errorArray, "Your emails don't match."); 
+                        array_push($this->errorArray, Constants::$emailsDoNotMatch); 
                         return;
                     }
                     if (!filter_var($em1, FILTER_VALIDATE_EMAIL)){
-                        array_push($this->errorArray, "Your email is invalid"); 
+                        array_push($this->errorArray, Constants::$emailInvalid); 
                         return;
                     }
                 }
 
                 private function validatePassword($pw1, $pw2){
                     if ($pw1 != $pw2){
-                        array_push($this->errorArray, "Your passwords don't match."); 
+                        array_push($this->errorArray, Constants::$passwordsDoNotMatch); 
                         return;
                     }
                     if(preg_match("#^[0-9a-z]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-z]{2,3}$#", $pw1)){
-                        array_push($this->errorArray, "Your passwords can only contain numbers and letters.");
+                        array_push($this->errorArray, Constants::$passwordsNotAlfanum);
                         return;
                     }
                     if(strlen($pw1) > 30 || strlen($pw2) < 5){
-                        array_push($this->errorArray, "Your password must be between 5 and 30 characters"); 
+                        array_push($this->errorArray, Constants::$passwordsLength); 
                         return;
                 }
             }
